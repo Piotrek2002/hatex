@@ -1,6 +1,4 @@
-package pl.hatex.hatex.models;
-
-import org.springframework.stereotype.Component;
+package pl.hatex.hatex.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
