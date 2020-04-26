@@ -11,7 +11,6 @@ public class HomeController {
 
     @GetMapping("/")
     @ResponseBody
-    @Secured("ROLE_USER")
     public String home() { return "home"; }
 
     @GetMapping("/about")

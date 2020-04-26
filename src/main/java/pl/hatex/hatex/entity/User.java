@@ -20,10 +20,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public User(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-
-    }
-
 
     public Long getId() {
         return id;
