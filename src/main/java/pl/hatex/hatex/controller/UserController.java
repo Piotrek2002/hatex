@@ -1,5 +1,6 @@
 package pl.hatex.hatex.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,9 @@ public class UserController {
         userService.saveUser(user);
         return "admin";
     }
-    @GetMapping("/admin")
+    @GetMapping("/info")
     @ResponseBody
+    @Secured("ROLE_USER")
     public String userInfo(@AuthenticationPrincipal UserDetails customUser) {
         return "You are logged as " + customUser;
     }

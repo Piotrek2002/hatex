@@ -18,15 +18,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("user1").password("{noop}user123").roles("USER")
                 .and()
-                .withUser("admin1").password("{noop}admin123").roles("ADMIN");
+                .withUser("admin1").password("{noop}admin123").roles("ADMIN","USER");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/about").hasRole("ADMIN")
-                .and().formLogin()
-                .loginPage("/login")
-                .and().logout().logoutSuccessUrl("/")
+                .and().formLogin().loginPage("/login")
+                .defaultSuccessUrl("/info")
+                .failureUrl("/login?error=true")
+                .and().logout().logoutSuccessUrl("/login?logout=true")
+                .invalidateHttpSession(true)
                 .permitAll()
                 .and().exceptionHandling().accessDeniedPage("/403");
     }
