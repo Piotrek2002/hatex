@@ -22,6 +22,8 @@ public class Order {
     private String created;
     @Column(nullable = false)
     private String updated;
+    @Column(nullable = false)
+    private int progress;
 
     public Order() {
     }

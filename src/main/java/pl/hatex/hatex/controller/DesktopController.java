@@ -1,16 +1,15 @@
 package pl.hatex.hatex.controller;
 
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class HomeController {
+@RequestMapping("/desktop")
+public class DesktopController {
 
-    @GetMapping("/")
-    public String home() { return "home"; }
-
-
+    @GetMapping()
+    public String desktop(){
+        return "desktop";
+    }
 }

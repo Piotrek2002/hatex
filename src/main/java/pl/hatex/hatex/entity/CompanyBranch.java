@@ -14,8 +14,6 @@ public class CompanyBranch {
     private String city;
     @OneToMany(mappedBy = "companyBranch")
     private List<Order> orders=new ArrayList<>();
-    @OneToMany
-    private List<Customer> customers=new ArrayList<>();
 
     public CompanyBranch() {
     }
@@ -44,21 +42,12 @@ public class CompanyBranch {
         this.orders = orders;
     }
 
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
-    }
-
     @Override
     public String toString() {
         return "CompanyBranch{" +
                 "id=" + id +
                 ", city='" + city + '\'' +
                 ", orders=" + orders +
-                ", customers=" + customers +
                 '}';
     }
 }

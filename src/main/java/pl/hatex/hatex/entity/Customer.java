@@ -1,6 +1,9 @@
 package pl.hatex.hatex.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,21 +14,32 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customer_id;
-    @Column(nullable = false)
+    @NotEmpty
     private String name;
-    @Column(nullable = false)
+    @NotEmpty
     private String surname;
-    @Column(nullable = false)
+    @NotEmpty
     private String address;
-    @Column(nullable = false)
-    private Integer phoneNumber;
+    @NotNull
+    private Long phoneNumber;
+    @Email
+    @NotEmpty
     private String email;
+
     private String description;
     @OneToMany(mappedBy = "customer")
     private List<Order> orders=new ArrayList<>();
 
 
     public Customer() {
+    }
+
+    public int getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
     }
 
     public String getName() {
@@ -52,27 +66,11 @@ public class Customer {
         this.address = address;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getCustomer_id() {
-        return customer_id;
-    }
-
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
-    }
-
-    public Integer getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -82,6 +80,14 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Order> getOrders() {
