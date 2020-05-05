@@ -4,4 +4,5 @@ import pl.hatex.hatex.entity.Customer;
 
 public interface CustomerService {
     void saveCustomer(Customer customer);
+    void deleteCustomer(long id);
 }

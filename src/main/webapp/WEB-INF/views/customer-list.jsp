@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 </body>
 </html>
 <!DOCTYPE html>
@@ -32,10 +33,7 @@
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
-
-
-
-        <div class="m-4 p-3 width-medium">
+        <div class="m-md-4 p-md-4 width-medium">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
                 <div class="row border-bottom border-3 p-1 m-1">
                     <div class="col noPadding"><h3 class="color-header text-uppercase">Lista klientów</h3></div>
@@ -46,30 +44,53 @@
                 <table class="table border-bottom schedules-content">
                     <thead>
                     <tr class="d-flex text-color-darker">
-                        <th scope="col" class="col-2">IMIE</th>
-                        <th scope="col" class="col-2">NAZWISKO</th>
-                        <th scope="col" class="col-4">ADRES</th>
-                        <th scope="col" class="col-2">NUMER TELEFONU</th>
-                        <th scope="col" class="col-2 center">AKCJE</th>
+                        <th scope="col" class="col-3">IMIE</th>
+                        <th scope="col" class="col-3">NAZWISKO</th>
+                        <th scope="col" class="col-3">NUMER TELEFONU</th>
+                        <th scope="col" class="col-3 center">AKCJE</th>
                     </tr>
                     </thead>
                     <c:forEach var="customer" items="${customers}">
                         <tbody class="text-color-lighter">
                         <tr class="d-flex">
-                            <th scope="row" class="col-2">${customer.name}</th>
-                            <td class="col-2">
+                            <th scope="row" class="col-3">${customer.name}</th>
+                            <td class="col-3">
                                     ${customer.surname}
                             </td>
-                            <td class="col-4">${customer.address}
-                            </td>
-                            <td class="col-2">${customer.phoneNumber}</td>
-                            <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                <a href="/app-recipe-details.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+
+                            <td class="col-3">${customer.phoneNumber}</td>
+                            <td class="col-3 d-flex align-items-center justify-content-center flex-wrap">
+                                <button class="btn btn-danger rounded-0 text-light m-1" data-toggle="modal"
+                                        data-target="#myModal${customer.id}">Usuń
+                                </button>
+                                <a href="/customer/details/${customer.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                                 <a href="/app-edit-recipe.html"
                                    class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
                             </td>
                         </tr>
+
+                        <div class="modal fade" id="myModal${customer.id}" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+
+                                        <h4 class="modal-title">Weryfikacja</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Czy napewno chcesz usunąć klienta o imieniu ${customer.name}.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="/customer/list" type="button" class="btn btn-default"
+                                           data-dismiss="modal">nie usuwaj
+                                        </a>
+                                        <a href="/customer/delete/${customer.id}" type="button"
+                                           class="btn btn-primary">Usuń</a>
+                                    </div>
+                                </div> <!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
                         </tbody>
                     </c:forEach>
                 </table>

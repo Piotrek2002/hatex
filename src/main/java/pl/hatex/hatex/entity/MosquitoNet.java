@@ -1,6 +1,10 @@
 package pl.hatex.hatex.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 @Entity
 @Table(name = "mosquito_net")
@@ -8,46 +12,46 @@ import javax.persistence.*;
 public class MosquitoNet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(nullable = false)
-    private double height;
-    @Column(nullable = false)
-    private double length;
-    @Column(nullable = false)
+    private long id;
+    @NotNull
+    private long height;
+    @NotNull
+    private long length;
+    @NotNull
     private String color;
-    @Column(nullable = false)
-    private int status;
-    @Column(nullable = false)
-    private double size;
-    @Column(nullable = false)
+    @NotNull
+    private long size;
+    @NotNull
     private int count;
+    @NotNull
+    private double price;
     @ManyToOne
     private Order order;
 
     public MosquitoNet() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public double getHeight() {
+    public long getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(long height) {
         this.height = height;
     }
 
-    public double getLength() {
+    public long getLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(long length) {
         this.length = length;
     }
 
@@ -59,19 +63,11 @@ public class MosquitoNet {
         this.color = color;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public double getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(double size) {
+    public void setSize(long size) {
         this.size = size;
     }
 
@@ -81,6 +77,14 @@ public class MosquitoNet {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Order getOrder() {

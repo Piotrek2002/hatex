@@ -22,9 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/customer/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/desktop/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/order/**").hasAnyRole("USER","ADMIN")
                 .and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/desktop")
-                .and().logout().logoutSuccessUrl("/403")
+                .and().logout().logoutSuccessUrl("/login")
                 .permitAll()
                 .and().exceptionHandling().accessDeniedPage("/403");
     }

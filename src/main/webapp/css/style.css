@@ -69,6 +69,10 @@ background: #EAEAEA;
   font-size: 1.4rem;
   color: var(--background-color);
 }
+.label-size1{
+  font-size: 1rem;
+  color: var(--background-color);
+}
 hr {
   border: 0;
   margin-bottom: 4px;
@@ -285,7 +289,7 @@ margin: 0 auto !important;
 }
 
 .footer-text-color {
-  color: var(--link-color);
+  color: var(--light-link-color);
 }
 
 /*------------------------------*/
@@ -441,6 +445,14 @@ margin: 0 auto !important;
   text-align: center;
   font-weight: bold;
   margin: 20px 0;
+}
+.orders-content-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 20px 0;
+}
+.orders-content-title span{
+  color: var(--link-color);
 }
 .dashboard-content-title span {
   color: var(--link-color);

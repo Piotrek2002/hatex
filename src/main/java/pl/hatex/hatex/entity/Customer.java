@@ -13,7 +13,7 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int customer_id;
+    private long id;
     @NotEmpty
     private String name;
     @NotEmpty
@@ -27,19 +27,19 @@ public class Customer {
     private String email;
 
     private String description;
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
     private List<Order> orders=new ArrayList<>();
 
 
     public Customer() {
     }
 
-    public int getCustomer_id() {
-        return customer_id;
+    public long getId() {
+        return id;
     }
 
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
+    public void setId(long customer_id) {
+        this.id = customer_id;
     }
 
     public String getName() {

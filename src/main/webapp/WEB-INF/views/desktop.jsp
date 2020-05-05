@@ -25,13 +25,10 @@
 
 <%@include file="backend-menu.jsp" %>
 
-<section class="dashboard-section" >
+<section class="dashboard-section">
     <div class="row dashboard-nowrap">
-
-
-
-        <div class="m-4 p-4 width-medium">
-            <div class="dashboard-header m-4">
+        <div class="m-md-4 p-md-4 width-medium">
+            <div class="dashboard-header m-md-4 mt-sm-4 mb-sm-4">
                 <div class="dashboard-menu">
                     <div class="menu-item border-dashed">
                         <a href="/order/add">
@@ -50,51 +47,61 @@
                 <div class="dashboard-alerts">
                     <div class="alert-item alert-info">
                         <i class="fas icon-circle fa-info-circle"></i>
-                        <span class="font-weight-bold">Liczba klientów: ${ recipeCount }</span>
+                        <span class="font-weight-bold">Liczba klientów: ${ countCustomer }</span>
                     </div>
                     <div class="alert-item alert-info">
                         <i class="fas icon-circle fa-info-circle"></i>
-                        <span class="font-weight-bold">Liczba zamówień zrealizowanych: ${ planCount }</span>
+                        <span class="font-weight-bold">Liczba zamówień zrealizowanych: ${ countCompletedOrders }</span>
                     </div>
                     <div class="alert-item alert-info">
                         <i class="far icon-circle fa-calendar-alt"></i>
-                        <span class="font-weight-bold">Liczba zamówień do realizacji: ${ planCount }</span>
+                        <span class="font-weight-bold">Liczba zamówień do realizacji: ${ countOrdersToComplete }</span>
                     </div>
 
                 </div>
             </div>
-            <div class="m-4 p-4 border-dashed">
+            <div class="p-sm-2 m-md-4 p-md-4 border-dashed">
                 <h2 class="dashboard-content-title">
-                    <span>Zamówienia do realizacji:</span> ${lastUserPlanName}
+                    <span>Zamówienia do realizacji:</span>
                 </h2>
-                <c:set var="weekday" value="0"/>
-                <c:forEach items="${ lastUserPlan }" var="plan">
-                    <c:if test="${weekday != plan[0]}">
-                        <table class="table">
-                            <thead>
-                            <tr class="d-flex">
-                                <th class="col-3">${plan[0]}</th>
-                                <th class="col-3"></th>
-                                <th class="col-3"></th>
-                                <th class="col-3"></th>
-                            </tr>
-                            </thead>
-                            <tbody class="text-color-lighter">
-                            <c:forEach items="${ lastUserPlan }" var="subplan">
-                                <c:if test="${plan[0] == subplan[0]}">
-                                    <tr class="d-flex">
-                                        <td class="col-2">${subplan[1]}</td>
-                                        <td class="col-8">${subplan[2]}</td>
-                                        <td class="col-2">
-                                            <a href="/app/recipe/details?id=${subplan[4]}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                        </td>
-                                    </tr>
-                                </c:if>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </c:if>
-                    <c:set var="weekday" value="${plan[0]}"/>
+
+                <c:forEach items="${ordersToComplete}" var="order">
+                    <table class="table">
+                        <tbody class="text-color-lighter">
+                        <tr class="d-flex">
+                            <td class="col-4">${order.customer.name} ${order.customer.surname}</td>
+                            <td class="col-5">${order.created}</td>
+                            <td class="col-3">
+                                <a href="/order/details/${order.id}"
+                                   class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                <button class="btn btn-success rounded-0 text-light m-1" data-toggle="modal"
+                                        data-target="#myModal${order.id}">Zrobione
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="modal fade" id="myModal${order.id}" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" >Weryfikacja zamówienia (${order.customer.surname})</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Czy napewno chcesz oznaczyć to zamówienie jako zrobione
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="/customer/list" type="button" class="btn btn-default"
+                                       data-dismiss="modal">wyjdź
+                                    </a>
+                                    <a href="/order/completed/${order.id}" type="button"
+                                       class="btn btn-primary">Oznacz jako zrobione</a>
+                                </div>
+                            </div> <!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
                 </c:forEach>
             </div>
         </div>

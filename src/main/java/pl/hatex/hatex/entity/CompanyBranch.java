@@ -1,6 +1,7 @@
 package pl.hatex.hatex.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +11,10 @@ public class CompanyBranch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+    @NotEmpty
     private String city;
-    @OneToMany(mappedBy = "companyBranch")
+    @OneToMany(mappedBy = "companyBranch", cascade = CascadeType.REMOVE)
     private List<Order> orders=new ArrayList<>();
 
     public CompanyBranch() {

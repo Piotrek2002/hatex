@@ -1,6 +1,7 @@
 package pl.hatex.hatex.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +11,12 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int order_id;
+    private long id;
     @ManyToOne
     private Customer customer;
     @ManyToOne
     private CompanyBranch companyBranch;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<MosquitoNet> mosquitoNets=new ArrayList<>();
 
     @Column(nullable = false)
@@ -28,12 +29,12 @@ public class Order {
     public Order() {
     }
 
-    public int getOrder_id() {
-        return order_id;
+    public long getId() {
+        return id;
     }
 
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
+    public void setId(long order_id) {
+        this.id = order_id;
     }
 
     public String getCreated() {
@@ -75,4 +76,13 @@ public class Order {
     public void setMosquitoNets(List<MosquitoNet> mosquitoNets) {
         this.mosquitoNets = mosquitoNets;
     }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
 }
