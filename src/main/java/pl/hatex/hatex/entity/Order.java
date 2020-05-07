@@ -25,6 +25,10 @@ public class Order {
     private String updated;
     @Column(nullable = false)
     private int progress;
+    @NotNull
+    private double price;
+    @NotNull
+    private double payment;
 
     public Order() {
     }
@@ -85,4 +89,19 @@ public class Order {
         this.progress = progress;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getPayment() {
+        return payment;
+    }
+
+    public void setPayment(double payment) {
+        this.payment = payment;
+    }
 }

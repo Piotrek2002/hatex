@@ -1,5 +1,6 @@
 package pl.hatex.hatex.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -59,7 +60,19 @@ public class OrderController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Order> orders = orderRepository.findAll();
+        List<Order> orders = orderRepository.findOrdersDesc();
+        model.addAttribute("orders", orders);
+        return "order-list";
+    }
+    @GetMapping("/listToComplete")
+    public String listToComplete(Model model){
+        List<Order> orders = orderRepository.findOrderToComplete();
+        model.addAttribute("orders", orders);
+        return "order-list";
+    }
+    @GetMapping("/listToPay")
+    public String listToPay(Model model){
+        List<Order> orders = orderRepository.findOrdersToPay();
         model.addAttribute("orders", orders);
         return "order-list";
     }
@@ -68,7 +81,10 @@ public class OrderController {
     public String details(@PathVariable long id, Model model) {
         model.addAttribute("id", id);
         model.addAttribute("mosquitoNets", mosquitoNetRepository.findAllByOrderId(id));
-        model.addAttribute("order",orderRepository.findOrderById(id));
+        Order order=orderRepository.findOrderById(id);
+        model.addAttribute("order",order);
+        double toPay=order.getPrice()-order.getPayment();
+        model.addAttribute("toPay",toPay);
         return "order-details";
     }
 
@@ -79,12 +95,26 @@ public class OrderController {
         orderService.update(order);
         return "redirect:/order/details/"+id;
     }
+    @GetMapping("/paid/{id}")
+    public String paid(@PathVariable long id) {
+        Order order = orderRepository.findOrderById(id);
+        order.setProgress(2);
+        order.setPayment(order.getPrice());
+        orderService.update(order);
+        return "redirect:/order/details/"+id;
+    }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable long id) {
         long customerId=orderRepository.findOrderById(id).getCustomer().getId();
         orderService.deleteOrder(id);
         return "redirect:/customer/details/"+customerId;
+    }
+    @GetMapping("/deleteFromList/{id}")
+    public String deleteFromList(@PathVariable long id) {
+        long customerId=orderRepository.findOrderById(id).getCustomer().getId();
+        orderService.deleteOrder(id);
+        return "redirect:/order/list";
     }
 
 

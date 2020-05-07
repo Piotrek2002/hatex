@@ -44,15 +44,14 @@ public class MosquitoNetController {
     @PostMapping("/add/{orderId}")
     public String add(@ModelAttribute @Validated MosquitoNet mosquitoNet, BindingResult bindingResult,@PathVariable long orderId) {
         if (!bindingResult.hasErrors()) {
-            mosquitoNet.setOrder(orderRepository.findOrderById(orderId));
-            mosquitoNetService.saveMosquitoNet(mosquitoNet);
+            mosquitoNetService.saveMosquitoNet(mosquitoNet, orderId);
             return "redirect:/order/details/" + orderId;
         }
         return "customer-add";
     }
     @GetMapping("/delete/{id}/{orderId}")
     public String delete(@PathVariable long id,@PathVariable long orderId) {
-        mosquitoNetService.deleteMosquitoNet(id);
+        mosquitoNetService.deleteMosquitoNet(id, orderId);
         return "redirect:/order/details/"+orderId;
     }
 

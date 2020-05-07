@@ -44,4 +44,8 @@ public class DesktopController {
     public List<Order> ordersToComplete(){
         return orderRepository.findOrderToComplete();
     }
+    @ModelAttribute("ordersToPay")
+    public List<Order> ordersToPay(){
+        return orderRepository.findOrdersToPay();
+    }
 }

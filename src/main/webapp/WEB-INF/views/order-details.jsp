@@ -31,13 +31,22 @@
                     </div>
                     <c:if test="${order.progress==0}">
                         <div class="col d-flex justify-content-end mb-2 noPadding">
-                            <button class="btn btn-success rounded-0 text-light m-1"><a
-                                    href="/mosquitoNet/add/${order.id}" class="text-light">Dodaj nowy produkt</a>
-                            </button>
-                        </div>
-                        <div class="col d-flex justify-content-end mb-2 noPadding">
                             <button class="btn btn-success rounded-0 text-light m-1" data-toggle="modal"
                                     data-target="#myModal${order.id}">Oznacz jako zrobione
+                            </button>
+                        </div>
+                    </c:if>
+                    <c:if test="${order.progress==1}">
+                        <div class="col d-flex justify-content-end mb-2 noPadding">
+                            <button class="btn btn-success rounded-0 text-light m-1" data-toggle="modal"
+                                    data-target="#Modal${order.id}">Oznacz jako zapłacone
+                            </button>
+                        </div>
+                    </c:if>
+                    <c:if test="${order.id<2}">
+                        <div class="col d-flex justify-content-end mb-2 noPadding">
+                            <button class="btn btn-success rounded-0 text-light m-1" data-toggle="modal"
+                                    data-target="#PayModal${order.id}">Dokonaj wpłaty
                             </button>
                         </div>
                     </c:if>
@@ -60,7 +69,7 @@
                                     Czy napewno chcesz oznaczyć to zamówienie jako zrobione
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="/customer/list" type="button" class="btn btn-default"
+                                    <a href="#" type="button" class="btn btn-default"
                                        data-dismiss="modal">wyjdź
                                     </a>
                                     <a href="/order/completed/${order.id}" type="button"
@@ -69,10 +78,94 @@
                             </div> <!-- /.modal-content -->
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
+                    <!-- Potwierdzenie płatności-->
+                    <div class="modal fade" id="Modal${order.id}" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Weryfikacja zamówienia (${order.customer.surname})</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Czy napewno chcesz oznaczyć to zamówienie jako zapłacone
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#" type="button" class="btn btn-default"
+                                       data-dismiss="modal">wyjdź
+                                    </a>
+                                    <a href="/order/paid/${order.id}" type="button"
+                                       class="btn btn-primary">Oznacz jako zapłacone</a>
+                                </div>
+                            </div> <!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    <!-- Wpłata-->
+                    <div class="modal fade" id="PayModal${order.id}" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Wpłata do zamówienia (${order.customer.surname})</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Podaj kwotę wpłaty.
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#" type="button" class="btn btn-default"
+                                       data-dismiss="modal">wyjdź
+                                    </a>
+                                    <a href="/order/paid/${order.id}" type="button"
+                                       class="btn btn-primary">Oznacz jako zapłacone</a>
+                                </div>
+                            </div> <!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </div>
+                <div class="schedules-content">
+                    <div class="schedules-content-header">
+                        <div class="form-group row mb-2">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    Cena zamówinia
+                            </span>
+                            <div class="col-sm-9 col-lg-10">
+                                <p class="schedules-text">${order.price}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    Wpłata
+                                </span>
+                            <div class="col-sm-9 col-lg-10">
+                                <p class="schedules-text">${order.payment}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    Do zapłaty
+                            </span>
+                            <div class="col-sm-9 col-lg-10">
+                                <p class="schedules-text">
+                                    ${toPay}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row  p-1 m-1">
+                    <div class="col noPadding">
+                        <h3 class="color-header text-uppercase">Lista produktów</h3>
+                    </div>
+                    <div class="col d-flex justify-content-end mb-2 noPadding">
+                        <button class="btn btn-success rounded-0 text-light m-1"><a
+                                href="/mosquitoNet/add/${order.id}" class="text-light">Dodaj nowy produkt</a>
+                        </button>
+                    </div>
                 </div>
                 <c:forEach items="${mosquitoNets}" var="mosquitoNet">
-                    <div class="schedules-content border-bottom">
-                        <div class="schedules-content-header">
+                    <div class="schedules-content border-top">
+                        <div class="schedules-content-header mt-2">
                             <div class="form-group row mb-2">
                             <span class="col-sm-3 col-lg-2 label-size1 col-form-label">
                                     Ilość
@@ -123,33 +216,37 @@
                                     <p class="schedules-text">${mosquitoNet.price} zł</p>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <button class="btn btn-danger rounded-0 text-light ml-3" data-toggle="modal"
-                                        data-target="#myModal${mosquitoNet.id}">Usuń
-                                </button>
-                                <div class="modal fade" id="myModal${mosquitoNet.id}" tabindex="-1" role="dialog"
-                                     aria-labelledby="myModalLabel"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
+                            <c:if test="${order.id<2}">
+                                <div class="form-group row">
+                                    <button class="btn btn-danger rounded-0 text-light ml-3" data-toggle="modal"
+                                            data-target="#myModal${mosquitoNet.id}">Usuń
+                                    </button>
+                                    <div class="modal fade" id="myModal${mosquitoNet.id}" tabindex="-1" role="dialog"
+                                         aria-labelledby="myModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
 
-                                                <h4 class="modal-title">Weryfikacja</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                Czy napewno chcesz usunąć ten produkt?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="/order/details/${order.id}" type="button" class="btn btn-default"
-                                                   data-dismiss="modal">nie usuwaj
-                                                </a>
-                                                <a href="/mosquitoNet/delete/${mosquitoNet.id}/${order.id}" type="button"
-                                                   class="btn btn-primary">Usuń</a>
-                                            </div>
-                                        </div> <!-- /.modal-content -->
-                                    </div><!-- /.modal-dialog -->
-                                </div><!-- /.modal -->
-                            </div>
+                                                    <h4 class="modal-title">Weryfikacja</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Czy napewno chcesz usunąć ten produkt?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="/order/details/${order.id}" type="button"
+                                                       class="btn btn-default"
+                                                       data-dismiss="modal">nie usuwaj
+                                                    </a>
+                                                    <a href="/mosquitoNet/delete/${mosquitoNet.id}/${order.id}"
+                                                       type="button"
+                                                       class="btn btn-primary">Usuń</a>
+                                                </div>
+                                            </div> <!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                </div>
+                            </c:if>
 
 
                         </div>

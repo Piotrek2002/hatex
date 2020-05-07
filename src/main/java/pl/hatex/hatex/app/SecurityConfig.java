@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/customer/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/desktop/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/order/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/mosquitoNet/**").hasAnyRole("USER","ADMIN")
                 .and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/desktop")
                 .and().logout().logoutSuccessUrl("/login")

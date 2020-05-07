@@ -2,6 +2,7 @@ package pl.hatex.hatex.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import pl.hatex.hatex.entity.CompanyBranch;
 import pl.hatex.hatex.entity.Order;
 import pl.hatex.hatex.entity.Role;
 
@@ -18,4 +19,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findOrdersDesc();
     @Query("select o from Order o where o.customer.id=?1 order by o.created desc")
     List<Order> findAllByCustomerId(long id);
+    @Query("select o from Order o where o.progress=1 order by o.created")
+    List<Order> findOrdersToPay();
+
 }

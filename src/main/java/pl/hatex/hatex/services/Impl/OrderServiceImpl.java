@@ -2,6 +2,7 @@ package pl.hatex.hatex.services.Impl;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import pl.hatex.hatex.entity.MosquitoNet;
 import pl.hatex.hatex.entity.Order;
 import pl.hatex.hatex.entity.User;
 import pl.hatex.hatex.repository.OrderRepository;
@@ -9,6 +10,7 @@ import pl.hatex.hatex.repository.UserRepository;
 import pl.hatex.hatex.services.OrderService;
 
 import java.time.LocalDateTime;
+import java.util.Iterator;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -41,5 +43,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrder(long id) {
         orderRepository.deleteById(id);
+    }
+
+    @Override
+    public void setPrice(Order order) {
+        double price=0;
+        Iterator<MosquitoNet> iterator=order.getMosquitoNets().iterator();
+        while (iterator.hasNext()){
+            price=price+iterator.next().getPrice();
+        }
+        order.setPrice(price);
+        orderRepository.save(order);
     }
 }
