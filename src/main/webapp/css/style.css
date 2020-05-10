@@ -2,7 +2,7 @@
 /*---- Main style ----*/
 /*------------------------------*/
 :root {
-  --link-color: #ff6600;
+  --link-color: #000000;
   --light-link-color: #fffffa;
   --background-color: #4b4c4a;
   --lighter-background-color: #5a615f;
@@ -30,7 +30,7 @@ html {
 body {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
-  background: repeat url("../../../resources/html/images/image.png");
+  background-color: #ffffff !important;
 }
 
 p {
@@ -61,6 +61,7 @@ background: #EAEAEA;
   text-decoration: none;
   color: var(--light-link-color); 
 }
+
 
 .btn-color:hover {
   opacity: .8;

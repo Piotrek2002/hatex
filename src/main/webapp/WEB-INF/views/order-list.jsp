@@ -54,10 +54,10 @@
                         <tbody class="text-color-lighter">
                         <tr class="d-flex">
                             <c:if test="${order.progress==0}">
-                                <td class="col-4"><i class="fa fa-check text-danger mr-2 pr-2"></i>${order.customer.name} ${order.customer.surname}</td>
+                                <td class="col-4"><i class="fa fa-times text-danger mr-2 pr-2"></i>${order.customer.name} ${order.customer.surname}</td>
                             </c:if>
                             <c:if test="${order.progress==1}">
-                            <td class="col-4"><i class="fa fa-times text-success mr-2 pr-2"></i>${order.customer.name} ${order.customer.surname}</td>
+                            <td class="col-4"><i class="fa fa-check text-success mr-2 pr-2"></i>${order.customer.name} ${order.customer.surname}</td>
                             </c:if>
                             <c:if test="${order.progress==2}">
                                 <td class="col-4"></i><i class="fas fa-dollar-sign text-warning mr-2 pr-2"></i>${order.customer.name} ${order.customer.surname}</td>

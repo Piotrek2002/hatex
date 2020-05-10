@@ -30,7 +30,7 @@
                         <h3 class="color-header text-uppercase">${customer.name} ${customer.surname}</h3>
                     </div>
                     <div class="col d-flex justify-content-end mb-2 noPadding">
-                        <input value="Poprzednia strona" onClick="history.back();" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4"/>
+                        <button onClick="history.back();" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Poprzednia strona</button>
                     </div>
                 </div>
 
@@ -94,6 +94,9 @@
                                 <td class="col-4"><i class="fa fa-times text-danger mr-2 pr-2"></i>Zamówienie do
                                     realizacji
                                 </td>
+                            </c:if>
+                            <c:if test="${order.progress==2}">
+                                <td class="col-4"></i><i class="fas fa-dollar-sign text-warning mr-2 pr-2"></i>Zamówienie zapłacone</td>
                             </c:if>
                             <td class="col-5">${order.created}</td>
                             <td class="col-3">

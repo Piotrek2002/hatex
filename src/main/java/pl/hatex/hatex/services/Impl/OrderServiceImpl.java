@@ -55,4 +55,17 @@ public class OrderServiceImpl implements OrderService {
         order.setPrice(price);
         orderRepository.save(order);
     }
+
+    @Override
+    public void setPayment(long orderId, double payment) {
+        Order order=orderRepository.findOrderById(orderId);
+        double orderPayment=order.getPayment();
+        double orderPrice=order.getPrice();
+        orderPayment += payment;
+        if (orderPayment>orderPrice){
+            orderPayment=orderPrice;
+        }
+        order.setPayment(orderPayment);
+        orderRepository.save(order);
+    }
 }

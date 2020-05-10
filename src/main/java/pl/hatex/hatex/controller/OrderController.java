@@ -1,6 +1,7 @@
 package pl.hatex.hatex.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import pl.hatex.hatex.repository.OrderRepository;
 import pl.hatex.hatex.repository.UserRepository;
 import pl.hatex.hatex.services.OrderService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequestMapping("/order")
@@ -112,9 +114,13 @@ public class OrderController {
     }
     @GetMapping("/deleteFromList/{id}")
     public String deleteFromList(@PathVariable long id) {
-        long customerId=orderRepository.findOrderById(id).getCustomer().getId();
         orderService.deleteOrder(id);
         return "redirect:/order/list";
+    }
+    @GetMapping(value = "/payment/{orderId}")
+    public String payment(@RequestParam double payment,@PathVariable long orderId){
+        orderService.setPayment(orderId,payment);
+        return "redirect:/order/details/"+orderId;
     }
 
 

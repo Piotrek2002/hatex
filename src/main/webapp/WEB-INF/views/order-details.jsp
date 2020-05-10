@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -43,7 +44,7 @@
                             </button>
                         </div>
                     </c:if>
-                    <c:if test="${order.id<2}">
+                    <c:if test="${order.progress<2 && order.payment<order.price}">
                         <div class="col d-flex justify-content-end mb-2 noPadding">
                             <button class="btn btn-success rounded-0 text-light m-1" data-toggle="modal"
                                     data-target="#PayModal${order.id}">Dokonaj wpłaty
@@ -109,16 +110,20 @@
                                 <div class="modal-header">
                                     <h4 class="modal-title">Wpłata do zamówienia (${order.customer.surname})</h4>
                                 </div>
-                                <div class="modal-body">
-                                    Podaj kwotę wpłaty.
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="#" type="button" class="btn btn-default"
-                                       data-dismiss="modal">wyjdź
-                                    </a>
-                                    <a href="/order/paid/${order.id}" type="button"
-                                       class="btn btn-primary">Oznacz jako zapłacone</a>
-                                </div>
+                                <form method="get" action="/order/payment/${order.id}">
+                                    <div class="modal-body">
+                                        Podaj kwotę wpłaty<input type="number" id="payment" name="payment" value="0"/>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#" type="button" class="btn btn-default"
+                                           data-dismiss="modal">wyjdź
+                                        </a>
+                                        <button type="submit"
+                                                class="btn btn-primary">Dokonaj wpłaty
+                                        </button>
+                                    </div>
+                                </form>
+
                             </div> <!-- /.modal-content -->
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
@@ -157,11 +162,13 @@
                     <div class="col noPadding">
                         <h3 class="color-header text-uppercase">Lista produktów</h3>
                     </div>
-                    <div class="col d-flex justify-content-end mb-2 noPadding">
-                        <button class="btn btn-success rounded-0 text-light m-1"><a
-                                href="/mosquitoNet/add/${order.id}" class="text-light">Dodaj nowy produkt</a>
-                        </button>
-                    </div>
+                    <c:if test="${order.progress==0}">
+                        <div class="col d-flex justify-content-end mb-2 noPadding">
+                            <button class="btn btn-success rounded-0 text-light m-1"><a
+                                    href="/mosquitoNet/add/${order.id}" class="text-light">Dodaj nowy produkt</a>
+                            </button>
+                        </div>
+                    </c:if>
                 </div>
                 <c:forEach items="${mosquitoNets}" var="mosquitoNet">
                     <div class="schedules-content border-top">
@@ -216,7 +223,7 @@
                                     <p class="schedules-text">${mosquitoNet.price} zł</p>
                                 </div>
                             </div>
-                            <c:if test="${order.id<2}">
+                            <c:if test="${order.progress<2}">
                                 <div class="form-group row">
                                     <button class="btn btn-danger rounded-0 text-light ml-3" data-toggle="modal"
                                             data-target="#myModal${mosquitoNet.id}">Usuń

@@ -32,36 +32,36 @@
                 <div class="dashboard-menu">
                     <div class="menu-item border-dashed">
                         <a href="/order/add">
-                            <i class="far fa-plus-square icon-plus-square"></i>
-                            <span class="title">Nowe Zamówienie </span>
+                            <i class="far fa-plus-square icon-plus-square text-success"></i>
+                            <span class="title text-success">Nowe Zamówienie </span>
                         </a>
                     </div>
                     <div class="menu-item border-dashed">
                         <a href="/customer/add">
-                            <i class="far fa-plus-square icon-plus-square"></i>
-                            <span class="title">Dodaj klienta</span>
+                            <i class="far fa-plus-square icon-plus-square text-success"></i>
+                            <span class="title text-success">Dodaj klienta</span>
                         </a>
                     </div>
                 </div>
 
                 <div class="dashboard-alerts">
-                    <div class="alert-item alert-info">
-                        <i class="fas icon-circle fa-info-circle"></i>
-                        <span class="font-weight-bold">Liczba klientów: ${ countCustomer }</span>
+                    <div class="alert-item alert-info text-info">
+                        <i class="fas icon-circle fa-info-circle text-info"></i>
+                        <span class="font-weight-bold text-info">Liczba klientów: ${ countCustomer }</span>
                     </div>
-                    <div class="alert-item alert-info">
-                        <i class="fas icon-circle fa-info-circle"></i>
-                        <span class="font-weight-bold">Liczba zamówień do zapłaty: ${ countCompletedOrders }</span>
+                    <div class="alert-item alert-info text-info">
+                        <i class="fas icon-circle fa-info-circle text-info"></i>
+                        <span class="font-weight-bold text-info">Liczba zamówień do zapłaty: ${ countCompletedOrders }</span>
                     </div>
-                    <div class="alert-item alert-info">
-                        <i class="far icon-circle fa-calendar-alt"></i>
-                        <span class="font-weight-bold">Liczba zamówień do realizacji: ${ countOrdersToComplete }</span>
+                    <div class="alert-item alert-info text-info">
+                        <i class="far icon-circle fa-calendar-alt text-info"></i>
+                        <span class="font-weight-bold text-info">Liczba zamówień do realizacji: ${ countOrdersToComplete }</span>
                     </div>
 
                 </div>
             </div>
             <div class="card text-center p-sm-2 m-md-4 p-md-4 border-dashed">
-                <div class="card-header">
+                <div class="bg-white card-header " >
                     <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active dark-text" id="toComplete-tab" data-toggle="tab" href="#toComplete" role="tab" aria-controls="home" aria-selected="true">Do realizacji</a>

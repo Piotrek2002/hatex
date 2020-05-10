@@ -7,4 +7,5 @@ public interface OrderService {
     void update(Order order);
     void deleteOrder(long id);
     void setPrice(Order order);
+    void setPayment(long orderId,double payment);
 }

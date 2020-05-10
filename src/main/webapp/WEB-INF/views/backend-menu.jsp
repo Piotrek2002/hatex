@@ -26,7 +26,7 @@
                     <div class="dropdown-menu" aria-labelledby="submenu">
                         <a class="dropdown-item" href="/order/list">Wszystkie</a>
                         <a class="dropdown-item" href="/order/listToComplete">Do zrealizowania</a>
-                        <a class="dropdown-item" href="/order/listToPay">Do zaplacenia</a>
+                        <a class="dropdown-item" href="/order/listToPay">Do zaplaty</a>
                     </div>
                 </li>
                 <sec:authorize access="hasRole('ADMIN')">
@@ -34,6 +34,8 @@
                     <a class="nav-link disabled" href="#"> Edytuj dane </a>
                 </li>
                 </sec:authorize>
+
+
 
                 <li class="nav-item">
                     <a class="nav-link" href="#"> Komunikator </a>
