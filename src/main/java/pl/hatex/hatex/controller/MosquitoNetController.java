@@ -49,10 +49,23 @@ public class MosquitoNetController {
         }
         return "customer-add";
     }
-    @GetMapping("/delete/{id}/{orderId}")
-    public String delete(@PathVariable long id,@PathVariable long orderId) {
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable long id) {
+        long orderId=mosquitoNetRepository.findById(id).getOrder().getId();
         mosquitoNetService.deleteMosquitoNet(id, orderId);
         return "redirect:/order/details/"+orderId;
     }
-
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable long id, Model model) {
+        model.addAttribute("mosquitoNet",mosquitoNetRepository.findById(id));
+        return "mosquitoNet-update";
+    }
+    @PostMapping("/update/{id}")
+    public String update(@ModelAttribute @Validated MosquitoNet mosquitoNet, BindingResult bindingResult,@PathVariable long id) {
+        if (!bindingResult.hasErrors()) {
+            mosquitoNetService.saveMosquitoNet(mosquitoNet, mosquitoNetRepository.findById(id).getOrder().getId());
+            return "redirect:/order/details/" + mosquitoNetRepository.findById(id).getOrder().getId();
+        }
+        return "mosquitoNet-update";
+    }
 }

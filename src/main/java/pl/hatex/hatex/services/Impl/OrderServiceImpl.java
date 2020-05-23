@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void saveOrder(Order order) {
-        String time = String.valueOf(LocalDateTime.now());
+        LocalDateTime time = LocalDateTime.now();
         order.setCreated(time);
         order.setUpdated(time);
         order.setProgress(0);
@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void update(Order order) {
-        String time = String.valueOf(LocalDateTime.now());
+        LocalDateTime time = LocalDateTime.now();
         order.setUpdated(time);
         orderRepository.save(order);
     }
@@ -59,13 +59,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void setPayment(long orderId, double payment) {
         Order order=orderRepository.findOrderById(orderId);
-        double orderPayment=order.getPayment();
         double orderPrice=order.getPrice();
-        orderPayment += payment;
-        if (orderPayment>orderPrice){
-            orderPayment=orderPrice;
+        if (payment>orderPrice){
+            payment=orderPrice;
         }
-        order.setPayment(orderPayment);
+        order.setPayment(payment);
         orderRepository.save(order);
     }
 }

@@ -3,6 +3,7 @@ package pl.hatex.hatex.entity;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +23,12 @@ public class User {
     private Set<Role> roles;
     @ManyToOne(cascade = CascadeType.REMOVE)
     private CompanyBranch companyBranch;
+
+    @OneToMany(mappedBy = "recipient")
+    private List<Message> messagesReceived;
+    @OneToMany(mappedBy = "sender")
+    private List<Message> messagesSent;
+
 
 
     public Long getId() {
@@ -70,5 +77,21 @@ public class User {
 
     public void setCompanyBranch(CompanyBranch companyBranch) {
         this.companyBranch = companyBranch;
+    }
+
+    public List<Message> getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    public void setMessagesReceived(List<Message> messagesReceived) {
+        this.messagesReceived = messagesReceived;
+    }
+
+    public List<Message> getMessagesSent() {
+        return messagesSent;
+    }
+
+    public void setMessagesSent(List<Message> messagesSent) {
+        this.messagesSent = messagesSent;
     }
 }

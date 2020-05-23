@@ -10,21 +10,21 @@ import java.util.List;
 public class CompanyBranch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     @Column(nullable = false, unique = true)
     @NotEmpty
     private String city;
-    @OneToMany(mappedBy = "companyBranch", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "companyBranch", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Order> orders=new ArrayList<>();
 
     public CompanyBranch() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

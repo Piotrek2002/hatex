@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: piotr
@@ -12,13 +13,11 @@
     <title>Hatex</title>
 </head>
 <body>
-<form:form method="post" modelAttribute="order">
-
-    <form:select path="customer" items="${customers}" itemLabel="surname" itemValue="id"/>
-    <form:errors path="customer" cssClass="errorMessage"/>
-
-    <input type="submit" value="Submit">
-
-</form:form>
+<div id="myDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+    <c:forEach items="${customers}" var="customer">
+        <a href="/order/add/${customer.id}">${customer.surname} ${customer.name}</a>
+    </c:forEach>
+</div>
 </body>
 </html>

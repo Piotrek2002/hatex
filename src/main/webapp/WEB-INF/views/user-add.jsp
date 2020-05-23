@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: piotr
+  Date: 11.05.2020
+  Time: 16:30
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -40,15 +47,15 @@
     <div class="container-fluid">
         <div class="row">
             <main role="main" class="col-12 ml-sm-auto px-md-4">
-                <form:form method="post" modelAttribute="mosquitoNet">
+                <form:form method="post" modelAttribute="user">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
-                        <h1 class="h2">Dodaj siatkę</h1>
+                        <h1 class="h2">Dodaj użytkownika</h1>
                         <div class="btn-toolbar">
                             <div class="btn-group mr-2">
                                 <ul class="nav nav-pills" role="tablist">
                                     <li>
                                         <button type="submit" class="btn form-control btn-outline-secondary">Dodaj
-                                            nową siatkę
+                                            nowego użytkownika
                                         </button>
                                     </li>
                                 </ul>
@@ -57,51 +64,45 @@
                     </div>
                     <table class="table table-sm">
                         <tbody>
-                        <tr class="d-flex">
-                            <form:label path="color">
-                                <th scope="row" class="col-2">Kolor</th>
+                        <tr class="d-flex pb-2">
+                            <form:label path="username">
+                                <th scope="row" class="col-2">Nazwa</th>
                             </form:label>
                             <td class="col-10">
-                                <form:select path="color" items="${colors}" class="w-100 p-1"/>
-                                <form:errors path="color" cssClass="errorMessage"/>
+                                <form:input path="username" class="w-100 p-1"/>
+                                <form:errors path="username" cssClass="errorMessage"/>
                             </td>
                         </tr>
-                        <tr class="d-flex">
-                            <form:label path="count">
-                                <th scope="row" class="col-2">Ilość</th>
+                        <tr class="d-flex pb-2">
+                            <form:label path="password">
+                                <th scope="row" class="col-2">Hasło</th>
                             </form:label>
                             <td class="col-10">
-                                <form:input type="number" path="count" class="w-100 p-1"/>
-                                <form:errors path="count" cssClass="errorMessage"/>
+                                <form:input path="password" class="w-100 p-1"/>
+                                <form:errors path="password" cssClass="errorMessage"/>
                             </td>
                         </tr>
-                        <tr class="d-flex">
-                            <form:label path="height">
-                                <th scope="row" class="col-2">Wysokość</th>
-                            </form:label>
+                        <tr class="d-flex pb-2">
+
+                            <th scope="row" class="col-2 w-100 p-1">Role</th>
                             <td class="col-10">
-                                <form:input path="height" class="w-100 p-1"/>
-                                <form:errors path="height" cssClass="errorMessage"/>
+                                <c:forEach items="${roles}" var="role">
+                                    ${role.name} <form:checkbox value="${role}" path="roles"/>
+                                </c:forEach>
+
+                                <form:errors path="roles" cssClass="errorMessage"/>
                             </td>
                         </tr>
-                        <tr class="d-flex">
-                            <form:label path="length">
-                                <th scope="row" class="col-2">Szerokość</th>
-                            </form:label>
+                        <tr class="d-flex pb-2">
+                            <th scope="row" class="col-2">Oddział</th>
+
                             <td class="col-10">
-                                <form:input path="length" class="w-100 p-1"/>
-                                <form:errors path="length" cssClass="errorMessage"/>
+                                <form:select items="${companyBranches}" path="companyBranch" class="w-100 p-1"
+                                             itemLabel="city" itemValue="id"/>
+                                <form:errors path="companyBranch" cssClass="errorMessage"/>
                             </td>
                         </tr>
-                        <tr class="d-flex">
-                            <form:label path="size">
-                                <th scope="row" class="col-2">Grubość</th>
-                            </form:label>
-                            <td class="col-10">
-                                <form:input path="size" class="w-100 p-1"/>
-                                <form:errors path="size" cssClass="errorMessage"/>
-                            </td>
-                        </tr>
+
                         </tbody>
                     </table>
 
@@ -114,4 +115,5 @@
 <%@include file="scripts.jsp" %>
 <script src="http://localhost:8080/dashboard.js"></script>
 </body>
+
 </html>

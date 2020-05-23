@@ -15,7 +15,9 @@ import pl.hatex.hatex.repository.UserRepository;
 import pl.hatex.hatex.services.CustomerService;
 import pl.hatex.hatex.services.OrderService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/customer")
@@ -54,6 +56,11 @@ public class CustomerController {
     public String list(Model model) {
         List<Customer> customers = customerRepository.findAll();
         model.addAttribute("customers", customers);
+        Set<Customer> customers1=new HashSet<>();
+        List<Order> orders=orderRepository.findOrdersToPay();
+        orders.stream().forEach(o->customers1.add(o.getCustomer()));
+        model.addAttribute("debtors", customers1);
+
         return "customer-list";
     }
 
@@ -75,7 +82,20 @@ public class CustomerController {
             order.setCustomer(customerRepository.findCustomerById(id));
             orderService.saveOrder(order);
             return "redirect:/order/details/" + order.getId();
-
+    }
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable long id,Model model){
+        model.addAttribute("customer",customerRepository.findCustomerById(id));
+        return "customer-edit";
+    }
+    @PostMapping("/edit/{id}")
+    public String update(@ModelAttribute @Validated Customer customer, BindingResult bindingResult, @PathVariable long id){
+        if (!bindingResult.hasErrors()) {
+            customerService.saveCustomer(customer);
+            return "redirect:/customer/details/"+id;
+        }
+        return "customer-edit";
 
     }
+
 }

@@ -1,6 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <header>
-    <nav class="navbar navbar-dark bg-color navbar-expand-lg">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
         <a class="navbar-brand mr-5" href="/desktop">Hatex</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu"
@@ -11,7 +11,7 @@
 
             <ul class="navbar-nav mr-auto">
 
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/desktop"> Pulpit </a>
                 </li>
 
@@ -21,24 +21,30 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true"> Zamowienia </a>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu1" aria-haspopup="true"> Zamowienia </a>
 
-                    <div class="dropdown-menu" aria-labelledby="submenu">
+                    <div class="dropdown-menu" aria-labelledby="submenu1">
                         <a class="dropdown-item" href="/order/list">Wszystkie</a>
                         <a class="dropdown-item" href="/order/listToComplete">Do zrealizowania</a>
                         <a class="dropdown-item" href="/order/listToPay">Do zaplaty</a>
+                        <a class="dropdown-item" href="/order/listValuations">Wyceny</a>
                     </div>
                 </li>
                 <sec:authorize access="hasRole('ADMIN')">
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#"> Edytuj dane </a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu2" aria-haspopup="true"> Profil admina </a>
+
+                    <div class="dropdown-menu" aria-labelledby="submenu2">
+                        <a class="dropdown-item" href="#">Statystyki</a>
+                        <a class="dropdown-item" href="/user/list">Pracownicy</a>
+                    </div>
                 </li>
                 </sec:authorize>
 
 
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> Komunikator </a>
+                    <a class="nav-link" href="/communicator"> Komunikator </a>
                 </li>
 
             </ul>

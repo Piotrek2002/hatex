@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: piotr
+  Date: 17.05.2020
+  Time: 02:23
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -31,6 +38,7 @@
         }
     </style>
     <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
 </head>
 <body>
 
@@ -41,13 +49,13 @@
             <main role="main" class="col-12 ml-sm-auto px-md-4">
                 <form:form method="post" modelAttribute="customer">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
-                        <h1 class="h2">Dodaj klienta</h1>
+                        <h1 class="h2">Aktualizacja klienta</h1>
                         <div class="btn-toolbar">
                             <div class="btn-group mr-2">
                                 <ul class="nav nav-pills" role="tablist">
                                     <li>
-                                        <button type="submit" class="btn form-control btn-outline-secondary">Dodaj
-                                            nowego klienta
+                                        <button type="submit" class="btn form-control btn-outline-secondary">Aktualizuj
+                                            klienta
                                         </button>
                                     </li>
                                 </ul>

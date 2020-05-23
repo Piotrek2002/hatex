@@ -2,6 +2,7 @@ package pl.hatex.hatex.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +21,17 @@ public class Order {
     private List<MosquitoNet> mosquitoNets=new ArrayList<>();
 
     @Column(nullable = false)
-    private String created;
+    private LocalDateTime created;
     @Column(nullable = false)
-    private String updated;
+    private LocalDateTime updated;
     @Column(nullable = false)
     private int progress;
     @NotNull
     private double price;
     @NotNull
     private double payment;
+    @NotNull
+    private int done;
 
     public Order() {
     }
@@ -41,19 +44,19 @@ public class Order {
         this.id = order_id;
     }
 
-    public String getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
-    public String getUpdated() {
+    public LocalDateTime getUpdated() {
         return updated;
     }
 
-    public void setUpdated(String updated) {
+    public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
     }
 
@@ -103,5 +106,13 @@ public class Order {
 
     public void setPayment(double payment) {
         this.payment = payment;
+    }
+
+    public int getDone() {
+        return done;
+    }
+
+    public void setDone(int done) {
+        this.done = done;
     }
 }

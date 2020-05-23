@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
+
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
           rel="stylesheet">
 
@@ -23,7 +24,7 @@
 
 <body>
 
-<%@include file="backend-menu.jsp"%>
+<%@include file="backend-menu.jsp" %>
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
@@ -61,61 +62,66 @@
                 </div>
             </div>
             <div class="card text-center p-sm-2 m-md-4 p-md-4 border-dashed">
-                <div class="bg-white card-header " >
+                <div class="bg-white card-header ">
                     <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active dark-text" id="toComplete-tab" data-toggle="tab" href="#toComplete" role="tab" aria-controls="home" aria-selected="true">Do realizacji</a>
+                            <a class="nav-link active dark-text" id="toComplete-tab" data-toggle="tab"
+                               href="#toComplete" role="tab" aria-controls="home" aria-selected="true">Do realizacji</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link dark-text" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Do zapłaty</a>
+                            <a class="nav-link dark-text" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                               aria-controls="profile" aria-selected="false">Do zapłaty</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card-body">
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active " id="toComplete" role="tabpanel" aria-labelledby="toComplete-tab">
-                                <h2 class="dashboard-content-title">
-                                    <span>Zamówienia do zapłaty:</span>
-                                </h2>
+                        <div class="tab-pane fade show active " id="toComplete" role="tabpanel"
+                             aria-labelledby="toComplete-tab">
+                            <h2 class="dashboard-content-title">
+                                <span>Zamówienia do zapłaty:</span>
+                            </h2>
 
-                                <c:forEach items="${ordersToComplete}" var="order">
-                                    <table class="table">
-                                        <tbody class="text-color-lighter">
-                                        <tr class="d-flex">
-                                            <td class="col-4">${order.customer.name} ${order.customer.surname}</td>
-                                            <td class="col-5">${order.created}</td>
-                                            <td class="col-3">
-                                                <a href="/order/details/${order.id}"
-                                                   class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                                <button class="btn btn-success rounded-0 text-light m-1" data-toggle="modal"
-                                                        data-target="#myModal${order.id}">Zrobione
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="modal fade" id="myModal${order.id}" tabindex="-1" role="dialog"
-                                         aria-labelledby="myModalLabel"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" >Weryfikacja zamówienia (${order.customer.surname})</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Czy napewno chcesz oznaczyć to zamówienie jako zrobione
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="#" type="button" class="btn btn-default"
-                                                       data-dismiss="modal">wyjdź
-                                                    </a>
-                                                    <a href="/order/completed/${order.id}" type="button"
-                                                       class="btn btn-primary">Oznacz jako zrobione</a>
-                                                </div>
-                                            </div> <!-- /.modal-content -->
-                                        </div><!-- /.modal-dialog -->
-                                    </div><!-- /.modal -->
-                                </c:forEach>
+                            <c:forEach items="${ordersToComplete}" var="order">
+                                <table class="table">
+                                    <tbody class="text-color-lighter">
+                                    <tr class="d-flex">
+                                        <td class="col-4">${order.customer.name} ${order.customer.surname}</td>
+                                        <td class="col-5">${order.created}</td>
+                                        <td class="col-3">
+                                            <a href="/order/details/${order.id}"
+                                               class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                            <button class="btn btn-success rounded-0 text-light m-1" data-toggle="modal"
+                                                    data-target="#myModal${order.id}">Zrobione
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="modal fade" id="myModal${order.id}" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Weryfikacja zamówienia
+                                                    (${order.customer.surname})</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                Czy napewno chcesz oznaczyć to zamówienie jako zrobione
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="#" type="button" class="btn btn-default"
+                                                   data-dismiss="modal">wyjdź
+                                                </a>
+                                                <a href="/order/completed/${order.id}" type="button"
+                                                   class="btn btn-primary">Oznacz jako zrobione</a>
+                                            </div>
+                                        </div> <!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div>
+                                <!-- /.modal -->
+                            </c:forEach>
 
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -145,7 +151,8 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title" >Weryfikacja zamówienia (${order.customer.surname})</h4>
+                                                <h4 class="modal-title">Weryfikacja zamówienia
+                                                    (${order.customer.surname})</h4>
                                             </div>
                                             <div class="modal-body">
                                                 Czy napewno chcesz oznaczyć to zamówienie jako zapłacone
@@ -159,10 +166,11 @@
                                             </div>
                                         </div> <!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
-                                </div><!-- /.modal -->
+                                </div>
+                                <!-- /.modal -->
                             </c:forEach>
                         </div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>

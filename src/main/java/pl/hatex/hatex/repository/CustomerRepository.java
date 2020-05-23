@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
     @Query("select o from Customer o where o.id=?1")
     Customer findCustomerById(long id);
+
 }

@@ -7,5 +7,7 @@ public interface UserService {
 
     User findByUserName(String name);
 
-    void saveUser(User user,String role);
+    void saveUser(User user);
+
+    void deleteUserById(Long id);
 }

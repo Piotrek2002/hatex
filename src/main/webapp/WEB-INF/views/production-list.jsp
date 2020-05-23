@@ -1,10 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: piotr
-  Date: 02.05.2020
-  Time: 18:35
+  Date: 12.05.2020
+  Time: 01:34
   To change this template use File | Settings | File Templates.
---%><%@ page contentType="text/html;charset=UTF-8" language="java" %>
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="pl">
@@ -41,8 +42,9 @@
     <link href="css/dashboard.css" rel="stylesheet">
 </head>
 <body>
-
-<%@include file="backend-menu.jsp" %>
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <a class="navbar-brand mr-5 text-white">Hatex</a>
+</nav>
 <section>
     <div class="container-fluid">
         <div class="row">
@@ -52,8 +54,6 @@
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
                             <ul class="nav nav-pills" role="tablist">
-                                <li class="pr-5"><a type="button" class="btn form-control btn-outline-secondary "
-                                                    href="/order/add">Nowe zamówienie</a></li>
                                 <li><input class="form-control" id="myInput" type="text" placeholder="Search" aria-label="Search"></li>
                             </ul>
 
@@ -67,33 +67,18 @@
                             <table class="table table-striped table-sm">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Numer</th>
                                     <th>Imię</th>
                                     <th>Nazwisko</th>
-                                    <th>Cena</th>
                                     <th>Data</th>
                                 </tr>
                                 </thead>
                                 <tbody id="myTable">
                                 <c:forEach items="${orders}" var="order">
-                                    <tr onclick="window.location='/order/details/${order.id}';">
-                                        <c:if test="${order.progress==0}">
-                                            <td><i class="fas fa-calculator text-secondary mr-2 pr-2"></i></td>
-                                        </c:if>
-                                        <c:if test="${order.progress==1}">
-                                            <td><i class="fa fa-times text-danger mr-2 pr-2"></i></td>
-                                        </c:if>
-                                        <c:if test="${order.progress==2}">
-                                            <td><i class="fa fa-check text-success mr-2 pr-2"></i></td>
-                                        </c:if>
-                                        <c:if test="${order.progress==3}">
-                                            <td><i class="fas fa-dollar-sign text-warning mr-2 pr-2"></i></td>
-                                        </c:if>
+                                    <tr onclick="window.location='/production/details/${order.id}';">
                                         <td>${order.id}</td>
                                         <td>${order.customer.name}</td>
                                         <td>${order.customer.surname}</td>
-                                        <td>${order.price}</td>
                                         <td>${order.created.dayOfMonth}-${order.created.month}-${order.created.year}</td>
                                     </tr>
                                 </c:forEach>

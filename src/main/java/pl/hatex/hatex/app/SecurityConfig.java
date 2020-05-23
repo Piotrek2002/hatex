@@ -13,6 +13,7 @@ import pl.hatex.hatex.services.SpringDataUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -24,8 +25,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/desktop/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/order/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/mosquitoNet/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/communicator/**").hasAnyRole("USER","ADMIN","PRODUCTION")
                 .and().formLogin().loginPage("/login")
-                .defaultSuccessUrl("/desktop")
+                .defaultSuccessUrl("/redirect")
                 .and().logout().logoutSuccessUrl("/login")
                 .permitAll()
                 .and().exceptionHandling().accessDeniedPage("/403");

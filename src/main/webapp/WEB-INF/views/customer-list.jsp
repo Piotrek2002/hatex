@@ -1,105 +1,131 @@
 <%--
   Created by IntelliJ IDEA.
   User: piotr
-  Date: 28.04.2020
-  Time: 21:23
+  Date: 14.05.2020
+  Time: 08:54
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="pl">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hatex</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
-          rel="stylesheet">
-    <link href='<c:url value="/css/style.css"/>' rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-</head>
 
+    <!-- Bootstrap core CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+</head>
 <body>
 
 <%@include file="backend-menu.jsp" %>
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <main role="main" class="col-12 ml-sm-auto px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3 ">
+                    <h1 class="h2">Klienci</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group mr-2">
+                            <ul class="nav nav-pills" role="tablist">
+                                <li class="pr-5"><a type="button" class="btn form-control btn-outline-secondary "
+                                                      href="/customer/add">Dodaj klienta</a></li>
+                                <li class="active"><a type="button" class="btn form-control btn-outline-secondary active"
+                                                      href="#all" role="tab"
+                                                      data-toggle="tab" >Wszyscy</a></li>
+                                <li><a type="button" class="btn form-control btn-outline-secondary" href="#debtors"
+                                       role="tab"
+                                       data-toggle="tab">Dłużnicy</a></li>
+                                <li><input class="form-control" id="myInput" type="text" placeholder="Search" aria-label="Search"></li>
+                            </ul>
 
-<section class="dashboard-section">
-    <div class="row dashboard-nowrap">
-        <div class="m-md-4 p-md-4 width-medium">
-            <div class="dashboard-content border-dashed p-3 m-4 view-height">
-                <div class="row border-bottom border-3 p-1 m-1">
-                    <div class="col noPadding"><h3 class="color-header text-uppercase">Lista klientów</h3></div>
-                    <div class="col noPadding d-flex justify-content-end mb-2"><a href="/customer/add"
-                                                                                  class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj
-                        klienta</a></div>
+                        </div>
+
+                    </div>
                 </div>
-                <table class="table border-bottom schedules-content">
-                    <thead>
-                    <tr class="d-flex text-color-darker">
-                        <th scope="col" class="col-3">IMIE</th>
-                        <th scope="col" class="col-3">NAZWISKO</th>
-                        <th scope="col" class="col-3">NUMER TELEFONU</th>
-                        <th scope="col" class="col-3 center">AKCJE</th>
-                    </tr>
-                    </thead>
-                    <c:forEach var="customer" items="${customers}">
-                        <tbody class="text-color-lighter">
-                        <tr class="d-flex">
-                            <th scope="row" class="col-3">${customer.name}</th>
-                            <td class="col-3">
-                                    ${customer.surname}
-                            </td>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="all">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                <tr>
+                                    <th>Imię</th>
+                                    <th>Nazwisko</th>
+                                    <th>Ilość zamówień</th>
+                                    <th>Numer telefonu</th>
+                                </tr>
+                                </thead>
+                                <tbody id="myTable">
+                                <c:forEach items="${customers}" var="customer">
+                                <tr onclick="window.location='/customer/details/${customer.id}';">
 
-                            <td class="col-3">${customer.phoneNumber}</td>
-                            <td class="col-3 d-flex align-items-center justify-content-center flex-wrap">
-                                <button class="btn btn-danger rounded-0 text-light m-1" data-toggle="modal"
-                                        data-target="#myModal${customer.id}">Usuń
-                                </button>
-                                <a href="/customer/details/${customer.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                <a href="/app-edit-recipe.html"
-                                   class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
-                            </td>
-                        </tr>
+                                    <td>${customer.name}</td>
+                                    <td>${customer.surname}</td>
+                                    <td>${customer.orders.size()}</td>
+                                    <td>${customer.phoneNumber}</td>
+                                </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="debtors">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                <tr>
+                                    <th>Imię</th>
+                                    <th>Nazwisko</th>
+                                    <th>Ilość zamówień</th>
+                                    <th>Numer telefonu</th>
+                                </tr>
+                                </thead>
 
-                        <div class="modal fade" id="myModal${customer.id}" tabindex="-1" role="dialog"
-                             aria-labelledby="myModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
+                                <tbody id="Table">
+                                <c:forEach items="${debtors}" var="customer">
+                                <tr onclick="window.location='/customer/details/${customer.id}';">
+                                    <td>${customer.name}</td>
+                                    <td>${customer.surname}</td>
+                                    <td>${customer.orders.size()}</td>
+                                    <td>${customer.phoneNumber}</td>
+                                </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
-                                        <h4 class="modal-title">Weryfikacja</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        Czy napewno chcesz usunąć klienta o imieniu ${customer.name}.
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a href="/customer/list" type="button" class="btn btn-default"
-                                           data-dismiss="modal">nie usuwaj
-                                        </a>
-                                        <a href="/customer/delete/${customer.id}" type="button"
-                                           class="btn btn-primary">Usuń</a>
-                                    </div>
-                                </div> <!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                        </tbody>
-                    </c:forEach>
-                </table>
-            </div>
+            </main>
         </div>
     </div>
 </section>
-
-
 <%@include file="scripts.jsp" %>
+<script src="http://localhost:8080/dashboard.js"></script>
 </body>
+
 </html>
+
+

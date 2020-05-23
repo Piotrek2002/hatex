@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: piotr
+  Date: 18.05.2020
+  Time: 23:48
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -31,6 +38,7 @@
         }
     </style>
     <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
 </head>
 <body>
 
@@ -39,15 +47,14 @@
     <div class="container-fluid">
         <div class="row">
             <main role="main" class="col-12 ml-sm-auto px-md-4">
-                <form:form method="post" modelAttribute="customer">
+                <form:form method="post" modelAttribute="mosquitoNet">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
-                        <h1 class="h2">Dodaj klienta</h1>
+                        <h1 class="h2">Aktualizuja moskitieru</h1>
                         <div class="btn-toolbar">
                             <div class="btn-group mr-2">
                                 <ul class="nav nav-pills" role="tablist">
                                     <li>
-                                        <button type="submit" class="btn form-control btn-outline-secondary">Dodaj
-                                            nowego klienta
+                                        <button type="submit" class="btn form-control btn-outline-secondary">Aktualizuj moskitiere
                                         </button>
                                     </li>
                                 </ul>
@@ -57,68 +64,52 @@
                     <table class="table table-sm">
                         <tbody>
                         <tr class="d-flex">
-                            <form:label path="name">
-                                <th scope="row" class="col-2">Imię</th>
+                            <form:label path="color">
+                                <th scope="row" class="col-2">Kolor</th>
                             </form:label>
-                            <td class="col-7">
-                                <form:input path="name" class="w-100 p-1"/>
-                                <form:errors path="name" cssClass="errorMessage"/>
+                            <td class="col-10">
+                                <form:select path="color" items="${colors}" class="w-100 p-1"/>
+                                <form:errors path="color" cssClass="errorMessage"/>
                             </td>
                         </tr>
                         <tr class="d-flex">
-                            <form:label path="surname">
-                                <th scope="row" class="col-2">Nazwisko</th>
+                            <form:label path="count">
+                                <th scope="row" class="col-2">Ilość</th>
                             </form:label>
-                            <td class="col-7">
-                                <form:input path="surname" class="w-100 p-1"/>
-                                <form:errors path="surname" cssClass="errorMessage"/>
+                            <td class="col-10">
+                                <form:input type="number" path="count" class="w-100 p-1"/>
+                                <form:errors path="count" cssClass="errorMessage"/>
                             </td>
                         </tr>
                         <tr class="d-flex">
-                            <form:label path="email">
-                                <th scope="row" class="col-2">Email</th>
+                            <form:label path="height">
+                                <th scope="row" class="col-2">Wysokość</th>
                             </form:label>
-                            <td class="col-7">
-                                <form:input path="email" class="w-100 p-1"/>
-                                <form:errors path="email" cssClass="errorMessage"/>
+                            <td class="col-10">
+                                <form:input path="height" class="w-100 p-1"/>
+                                <form:errors path="height" cssClass="errorMessage"/>
                             </td>
                         </tr>
                         <tr class="d-flex">
-                            <form:label path="phoneNumber">
-                                <th scope="row" class="col-2">Numer telofonu</th>
+                            <form:label path="length">
+                                <th scope="row" class="col-2">Szerokość</th>
                             </form:label>
-                            <td class="col-3">
-                                <form:input path="phoneNumber" class="w-100 p-1"/>
-                                <form:errors path="phoneNumber" cssClass="errorMessage"/>
+                            <td class="col-10">
+                                <form:input path="length" class="w-100 p-1"/>
+                                <form:errors path="length" cssClass="errorMessage"/>
+                            </td>
+                        </tr>
+                        <tr class="d-flex">
+                            <form:label path="size">
+                                <th scope="row" class="col-2">Grubość</th>
+                            </form:label>
+                            <td class="col-10">
+                                <form:input path="size" class="w-100 p-1"/>
+                                <form:errors path="size" cssClass="errorMessage"/>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-
-                    <div class="row d-flex">
-
-                        <div class="col-5 border-bottom border-3">
-                            <form:label path="address"><h3 class="text-uppercase">Adres klienta</h3></form:label>
-                        </div>
-
-                        <div class="col-2"></div>
-                        <div class="col-5 border-bottom border-3">
-                            <form:label path="description"><h3 class="text-uppercase">Dodatkowe
-                                informacje</h3></form:label>
-                        </div>
-                    </div>
-                    <div class="row d-flex">
-                        <div class="col-5 p-4">
-                            <form:textarea path="address" rows="10" class="w-100 p-1"/>
-                            <form:errors path="address" cssClass="errorMessage"/>
-                        </div>
-                        <div class="col-2"></div>
-
-                        <div class="col-5 p-4">
-                            <form:textarea path="description" rows="10" class="w-100 p-1"/>
-                            <form:errors path="description" cssClass="errorMessage"/>
-                        </div>
-                    </div>
 
                 </form:form>
 
@@ -129,5 +120,4 @@
 <%@include file="scripts.jsp" %>
 <script src="http://localhost:8080/dashboard.js"></script>
 </body>
-
 </html>
